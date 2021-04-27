@@ -56,6 +56,20 @@ func BenchmarkBubbleSort10000(b *testing.B) {
 	}
 }
 
+func BenchmarkBubbleSort50000(b *testing.B) {
+	els := getElements(50000)
+	for i := 0; i < b.N; i++ {
+		BubbleSort(els)
+	}
+}
+
+func BenchmarkBubbleSort100000(b *testing.B) {
+	els := getElements(100000)
+	for i := 0; i < b.N; i++ {
+		BubbleSort(els)
+	}
+}
+
 func BenchmarkNativeSort10(b *testing.B) {
 	els := getElements(10)
 	for i := 0; i < b.N; i++ {
@@ -65,6 +79,20 @@ func BenchmarkNativeSort10(b *testing.B) {
 
 func BenchmarkNativeSort10000(b *testing.B) {
 	els := getElements(10000)
+	for i := 0; i < b.N; i++ {
+		sort.Ints(els)
+	}
+}
+
+func BenchmarkNativeSort50000(b *testing.B) {
+	els := getElements(50000)
+	for i := 0; i < b.N; i++ {
+		sort.Ints(els)
+	}
+}
+
+func BenchmarkNativeSort100000(b *testing.B) {
+	els := getElements(100000)
 	for i := 0; i < b.N; i++ {
 		sort.Ints(els)
 	}
