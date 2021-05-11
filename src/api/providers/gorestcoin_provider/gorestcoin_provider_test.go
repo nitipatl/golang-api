@@ -30,7 +30,7 @@ func TestCreateUserFailed(t *testing.T) {
 		Method: http.MethodPost,
 		Err:    errors.New("error from api"),
 	})
-	user, err := CreateUser("de280ea2a0b7a56cd3694f919407258c786968350f8a101528134e7ffddc8435", gorestcoin.CreateUserRequest{
+	user, err := CreateUser("", gorestcoin.CreateUserRequest{
 		Name:   "Nitipat L",
 		Email:  "iamsvz+junk4@gmail.com",
 		Gender: "Male",
