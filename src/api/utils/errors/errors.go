@@ -1,57 +1,61 @@
 package errors
 
 import (
+	"encoding/json"
+	"errors"
 	"net/http"
 )
 
 type ApiError interface {
 	Status() int
 	Message() string
-	Error() string
 }
 
 type apiError struct {
-	status  int    `json:"status"`
-	message string `json:"message"`
-	error   string `json:"error"`
+	Astatus  int    `json:"status"`
+	Amessage string `json:"message"`
 }
 
 func (e *apiError) Status() int {
-	return e.status
+	return e.Astatus
 }
 
 func (e *apiError) Message() string {
-	return e.message
+	return e.Amessage
 }
 
-func (e *apiError) Error() string {
-	return e.error
+func NewApiErrorFromBytes(body []byte) (ApiError, error) {
+	var result apiError
+	if err := json.Unmarshal(body, &result); err != nil {
+		return nil, errors.New("invalid json body")
+	}
+	return &result, nil
 }
 
 func NewNotFoundError(message string) ApiError {
 	return &apiError{
-		status:  http.StatusNotFound,
-		message: message,
+		Astatus:  http.StatusNotFound,
+		Amessage: message,
 	}
 }
 
 func NewBadRequestError(message string) ApiError {
 	return &apiError{
-		status:  http.StatusBadRequest,
-		message: message,
+		Astatus:  http.StatusBadRequest,
+		Amessage: message,
 	}
 }
 
 func NewUpprocessRequestError(message string) ApiError {
 	return &apiError{
-		status:  http.StatusUnprocessableEntity,
-		message: message,
+		Astatus:  http.StatusUnprocessableEntity,
+		Amessage: message,
 	}
 }
 
 func NewInternalServerError(message string) ApiError {
 	return &apiError{
-		status:  http.StatusInternalServerError,
-		message: message,
+		Astatus:  http.StatusInternalServerError,
+		Amessage: message,
 	}
 }
