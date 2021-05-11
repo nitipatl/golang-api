@@ -73,7 +73,7 @@ func TestCreateUserSuccess(t *testing.T) {
 			Body:       ioutil.NopCloser(strings.NewReader(json)),
 		},
 	})
-	user, _ := CreateUser("de280ea2a0b7a56cd3694f919407258c786968350f8a101528134e7ffddc8435", gorestcoin.CreateUserRequest{
+	user, _ := CreateUser("", gorestcoin.CreateUserRequest{
 		Name:   "Nitipat L",
 		Email:  "iamsvz+junk4@gmail.com",
 		Gender: "Male",

@@ -41,7 +41,13 @@ func (s *usersService) CreateUser(input users.CreateUserRequest) (*users.CreateU
 	}
 
 	response, err := gorest_provider.CreateUser(config.GetGorestToken(), request)
-	if err.Code > 0 {
+	if err.Code == 422 {
+		fieldsError := ""
+		for _, errM := range err.Data {
+			fieldsError += errM.Field + ":" + errM.Message + " "
+		}
+		return nil, errors.NewUpprocessRequestError(fieldsError)
+	} else if err.Code > 0 {
 		return nil, errors.NewInternalServerError("API 3rd party error something")
 	}
 	result := users.CreateUserResponse{

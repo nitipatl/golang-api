@@ -42,6 +42,13 @@ func NewBadRequestError(message string) ApiError {
 	}
 }
 
+func NewUpprocessRequestError(message string) ApiError {
+	return &apiError{
+		status:  http.StatusUnprocessableEntity,
+		message: message,
+	}
+}
+
 func NewInternalServerError(message string) ApiError {
 	return &apiError{
 		status:  http.StatusInternalServerError,
